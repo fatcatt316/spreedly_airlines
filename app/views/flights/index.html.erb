@@ -1,0 +1,21 @@
+<h1>Welcome to Joe's Discount Airlines!</h1>
+
+<table>
+  <thead>
+    <th>From</th>
+    <th></th>
+    <th>To</th>
+    <th>Cost</th>
+    <th></th>
+    <th></th>
+  </thead>
+  <% @flights.each do |flight| %>
+    <tr>
+      <td><%= flight.origin %></td>
+      <td>➡️</td>
+      <td><%= flight.destination %></td>
+      <td><%= number_to_currency(flight.cost, precision: 0) %></td>
+      <td>LINK Buy Tickets! /LINK</td>
+    </tr>
+  <% end %>
+</table>
