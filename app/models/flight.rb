@@ -3,5 +3,5 @@ class Flight < ApplicationRecord
   validates :destination, presence: true
   validates :origin, presence: true
 
-  has_many :transactions
+  has_many :transactions, dependent: :destroy
 end
