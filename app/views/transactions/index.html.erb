@@ -1,0 +1,31 @@
+<p>
+  <%= link_to 'Flights', flights_path %> |
+  Transactions
+</p>
+
+<h2>Transactions</h2>
+
+<table>
+  <thead>
+    <th>Email</th>
+    <th>From</th>
+    <th></th>
+    <th>To</th>
+    <th>Cost per Ticket</th>
+    <th>Ticket Count</th>
+    <th>Total Cost</th>
+    <th>Purchased at</th>
+  </thead>
+  <% @transactions.each do |transaction| %>
+    <tr>
+      <td><%= transaction.email %></td>
+      <td><%= transaction.flight.origin %></td>
+      <td>➡️</td>
+      <td><%= transaction.flight.destination %></td>
+      <td><%= number_to_currency(transaction.flight.cost, precision: 0) %></td>
+      <td><%= transaction.ticket_count %></td>
+      <td><%= number_to_currency(transaction.amount, precision: 0) %></td>
+      <td><%= transaction.created_at %></td>
+    </tr>
+  <% end %>
+</table>
