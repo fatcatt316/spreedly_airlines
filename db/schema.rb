@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200110200010) do
+ActiveRecord::Schema.define(version: 20200110200913) do
 
   create_table "flights", force: :cascade do |t|
     t.string   "origin"
@@ -18,6 +18,16 @@ ActiveRecord::Schema.define(version: 20200110200010) do
     t.integer  "cost"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.integer  "flight_id"
+    t.integer  "ticket_count"
+    t.string   "email"
+    t.integer  "amount"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["flight_id"], name: "index_transactions_on_flight_id"
   end
 
 end
