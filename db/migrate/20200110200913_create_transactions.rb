@@ -7,6 +7,7 @@ class CreateTransactions < ActiveRecord::Migration[5.0]
       t.integer :amount
       t.string :payment_method_token
       t.string :transaction_token
+      t.boolean :save_card, default: false, null: false
 
       t.timestamps
     end

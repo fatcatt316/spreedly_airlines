@@ -27,8 +27,9 @@ ActiveRecord::Schema.define(version: 20200110200913) do
     t.integer  "amount"
     t.string   "payment_method_token"
     t.string   "transaction_token"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.boolean  "save_card",            default: false, null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.index ["flight_id"], name: "index_transactions_on_flight_id"
   end
 
