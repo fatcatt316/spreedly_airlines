@@ -30,11 +30,22 @@
     setAmount.setAttribute("value", totalCost);
     document.getElementById('grand-total').innerHTML = "$" + totalCost;
   }
+
+  function selectedSavedCard(){
+    var savedCardToken = document.getElementById('saved_token').value;
+    var savedCardSubmitButton = document.getElementById('saved_card_submit_button');
+    var tokenField = document.getElementById("transaction_payment_method_token");
+
+    tokenField.setAttribute("value", savedCardToken);
+    if(savedCardToken == "") {
+      savedCardSubmitButton.disabled = true;
+    } else {
+      savedCardSubmitButton.disabled = false;
+    }
+  }
 </script>
 
 <h1>New Transaction</h1>
-
-<%= render 'form', transaction: @transaction %>
 
 <%= form_for(@transaction) do |f| %>
   <% if @transaction.errors.any? %>
@@ -74,10 +85,26 @@
     Save card for future use? <%= f.select :save_card, [['Yes', true], ['No', false]]%>
   </div>
 
+  <% if @saved_cards.any? %>
+    <div class="payment_option">
+      <% # TODO: Not this
+        saved_card_options = @saved_cards.map do |card|
+          ["#{card[:card_type]} #{card[:number]}", card[:token]]
+        end
+      %>
+      Buy using a Saved Card: <%= select_tag :saved_token, options_for_select(saved_card_options), include_blank: true, onchange: 'selectedSavedCard();' %>
+      <%= f.submit 'Buy!', id: 'saved_card_submit_button', disabled: true %>
+    </div>
+  <% end %>
+
   <%= f.hidden_field :amount %>
   <%= f.hidden_field :payment_method_token %>
 <% end %>
 
-<button onmouseover="initSpreedly()" onClick="SpreedlyExpress.openView()">
-  Enter Payment Info
-</button>
+<p>OR</p>
+
+<div class="payment_option">
+  <button onmouseover="initSpreedly()" onClick="SpreedlyExpress.openView()">
+    Enter New Payment Info
+  </button>
+</div>

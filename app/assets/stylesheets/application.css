@@ -22,3 +22,8 @@
    background-color: yellow;
    padding: 10px;
  }
+
+ .payment_option {
+   border: 1px solid black;
+   padding: 5px;
+ }
