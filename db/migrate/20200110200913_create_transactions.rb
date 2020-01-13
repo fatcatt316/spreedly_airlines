@@ -5,6 +5,7 @@ class CreateTransactions < ActiveRecord::Migration[5.0]
       t.integer :ticket_count
       t.string :email
       t.integer :amount
+      t.string :payment_method_token
 
       t.timestamps
     end
