@@ -13,6 +13,12 @@
     <em>You get what you pay for©</em>
     <hr />
 
+    <% flash.each do |type, msg| %>
+      <div>
+        <%= msg %>
+      </div>
+    <% end %>
+
     <%= yield %>
 
   </body>

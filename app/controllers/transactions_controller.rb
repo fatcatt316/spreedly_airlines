@@ -22,7 +22,8 @@ class TransactionsController < ApplicationController
         @transaction.save!
         redirect_to transactions_path, notice: 'Enjoy your flight!'
       else
-        render :new, alert: 'Something went wrong with your payment'
+        flash.now[:notice] = transaction.message
+        render :new
       end
     else
       render :new
