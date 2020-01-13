@@ -11,11 +11,13 @@ class TransactionsController < ApplicationController
   def create
     @transaction = Transaction.new(transaction_params)
 
-
     ##### TODO: Cleanup
     if @transaction.valid?
-      env = Spreedly::Environment.new(ENV['spreedly_environment_key'], ENV['spreedly_access_secret'])
-      transaction = env.purchase_on_gateway(ENV['gateway_token'], @transaction.payment_method_token, @transaction.amount * 100)
+      transaction = spreedly_env.purchase_on_gateway(
+        ENV['gateway_token'],
+        @transaction.payment_method_token,
+        @transaction.amount * 100
+      )
 
       if transaction.succeeded?
         @transaction.transaction_token = transaction.token
@@ -33,6 +35,13 @@ class TransactionsController < ApplicationController
   private
 
   def transaction_params
-    params.require(:transaction).permit(:amount, :email, :flight_id, :payment_method_token, :ticket_count)
+    params.require(:transaction).permit(
+      :amount, :email, :flight_id, :payment_method_token, :save_card,
+      :ticket_count
+    )
+  end
+
+  def spreedly_env
+    @_spreedly_env ||= Spreedly::Environment.new(ENV['spreedly_environment_key'], ENV['spreedly_access_secret'])
   end
 end
