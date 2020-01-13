@@ -22,7 +22,6 @@ gem 'spreedly', '~> 2.0.24'
 
 gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jquery-rails' # Use jquery as the JavaScript library
-gem 'turbolinks', '~> 5' # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
