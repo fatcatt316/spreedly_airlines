@@ -20,7 +20,7 @@
       <td>➡️</td>
       <td><%= flight.destination %></td>
       <td><%= number_to_currency(flight.cost, precision: 0) %></td>
-      <td>LINK Buy Tickets! /LINK</td>
+      <td><%= link_to 'Buy Tickets!', new_transaction_path(flight_id: flight) %></td>
     </tr>
   <% end %>
 </table>

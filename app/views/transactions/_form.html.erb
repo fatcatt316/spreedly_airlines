@@ -1,0 +1,34 @@
+<%= form_for(transaction) do |f| %>
+  <% if transaction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+
+      <ul>
+      <% transaction.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    Flight: <%= display_flight_info(transaction.flight) %>
+    <%= f.hidden_field :flight_id, value: transaction.flight_id %>
+  </div>
+
+  <div>
+    Cost per Ticket: <%= number_to_currency(transaction.flight.cost, precision: 0) %>
+  </div>
+
+  <div>
+    Email: <%= f.text_field :email %>
+  </div>
+
+  <div>
+    How many tickets you want?: <%= f.number_field :ticket_count, in: 1...10 %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
