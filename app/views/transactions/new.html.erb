@@ -1,5 +1,41 @@
+<script src="https://core.spreedly.com/iframe/express-2.min.js"></script>
+
+<script>
+  function initSpreedly(){
+    SpreedlyExpress.init("<%= ENV['spreedly_environment_key'] %>", {
+      "amount": "$" + document.getElementById('transaction_amount').value,
+      "company_name": "Joe's Discount Aeroplane Travel",
+      "sidebar_top_description": "You get what you pay for©",
+      "name_label": "Cardholder's Name",
+      "submit_label": "Buy Tickets Now!"
+    }, {
+      "email": document.getElementById('transaction_email').value
+    });
+  }
+
+  SpreedlyExpress.onPaymentMethod(function(token, paymentMethod) {
+    // Send requisite payment method info to backend
+    var tokenField = document.getElementById("transaction_payment_method_token");
+
+    tokenField.setAttribute("value", token);
+
+    var masterForm = document.getElementById('new_transaction');
+    masterForm.submit();
+  });
+
+  function setTotalAmount(){
+    var ticketCount = document.getElementById('transaction_ticket_count').value;
+    var totalCost = <%= @transaction.flight&.cost %> * ticketCount;
+    var setAmount = document.getElementById('transaction_amount');
+    setAmount.setAttribute("value", totalCost);
+    document.getElementById('grand-total').innerHTML = "$" + totalCost;
+  }
+</script>
+
 <h1>New Transaction</h1>
 
 <%= render 'form', transaction: @transaction %>
 
-<%= link_to 'Back', transactions_path %>
+<button onmouseover="initSpreedly()" onClick="SpreedlyExpress.openView()">
+  Enter Payment Info
+</button>

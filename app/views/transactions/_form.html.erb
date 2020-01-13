@@ -25,10 +25,13 @@
   </div>
 
   <div>
-    How many tickets you want?: <%= f.number_field :ticket_count, in: 1...10 %>
+    How many tickets you want?: <%= f.number_field :ticket_count, in: 1...10, onchange: 'setTotalAmount();' %>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div>
+    Total Cost: <div id='grand-total'></div>
   </div>
+
+  <%= f.hidden_field :amount %>
+  <%= f.hidden_field :payment_method_token %>
 <% end %>

@@ -11,10 +11,8 @@ class TransactionsController < ApplicationController
   def create
     @transaction = Transaction.new(transaction_params)
 
-    # TODO: Temporary! Calculate this in form with JS on ticket_count field change
-    @transaction.set_amount
-
     if @transaction.save
+      # TODO: Actually charge the card! All we've done so far is tokenize it in Spreedly's vault
       redirect_to transactions_path, notice: 'Enjoy your flight!'
     else
       render :new
@@ -24,6 +22,6 @@ class TransactionsController < ApplicationController
   private
 
   def transaction_params
-    params.require(:transaction).permit(:email, :flight_id, :ticket_count)
+    params.require(:transaction).permit(:amount, :email, :flight_id, :payment_method_token, :ticket_count)
   end
 end
