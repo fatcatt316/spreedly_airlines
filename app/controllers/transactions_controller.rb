@@ -11,9 +11,19 @@ class TransactionsController < ApplicationController
   def create
     @transaction = Transaction.new(transaction_params)
 
-    if @transaction.save
-      # TODO: Actually charge the card! All we've done so far is tokenize it in Spreedly's vault
-      redirect_to transactions_path, notice: 'Enjoy your flight!'
+
+    ##### TODO: Cleanup
+    if @transaction.valid?
+      env = Spreedly::Environment.new(ENV['spreedly_environment_key'], ENV['spreedly_access_secret'])
+      transaction = env.purchase_on_gateway(ENV['gateway_token'], @transaction.payment_method_token, @transaction.amount * 100)
+
+      if transaction.succeeded?
+        @transaction.transaction_token = transaction.token
+        @transaction.save!
+        redirect_to transactions_path, notice: 'Enjoy your flight!'
+      else
+        render :new, alert: 'Something went wrong with your payment'
+      end
     else
       render :new
     end
