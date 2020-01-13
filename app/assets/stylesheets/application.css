@@ -17,3 +17,8 @@
  form div {
    margin-bottom: 20px;
  }
+
+ .flash {
+   background-color: yellow;
+   padding: 10px;
+ }
