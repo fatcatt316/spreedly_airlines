@@ -6,6 +6,7 @@ class CreateTransactions < ActiveRecord::Migration[5.0]
       t.string :email
       t.integer :amount
       t.string :payment_method_token
+      t.string :transaction_token
 
       t.timestamps
     end
