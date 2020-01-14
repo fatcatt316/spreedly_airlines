@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200110200913) do
+ActiveRecord::Schema.define(version: 20200113213514) do
 
   create_table "flights", force: :cascade do |t|
     t.string   "origin"
@@ -20,8 +20,17 @@ ActiveRecord::Schema.define(version: 20200110200913) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "saved_cards", force: :cascade do |t|
+    t.string   "last_four_digits", limit: 4
+    t.string   "card_type"
+    t.string   "token"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
   create_table "transactions", force: :cascade do |t|
     t.integer  "flight_id"
+    t.integer  "saved_card_id"
     t.integer  "ticket_count"
     t.string   "email"
     t.integer  "amount"
@@ -31,6 +40,7 @@ ActiveRecord::Schema.define(version: 20200110200913) do
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
     t.index ["flight_id"], name: "index_transactions_on_flight_id"
+    t.index ["saved_card_id"], name: "index_transactions_on_saved_card_id"
   end
 
 end

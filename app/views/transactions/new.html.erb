@@ -32,16 +32,10 @@
   }
 
   function selectedSavedCard(){
-    var savedCardToken = document.getElementById('saved_token').value;
+    var savedCardId = document.getElementById('transaction_saved_card_id').value;
     var savedCardSubmitButton = document.getElementById('saved_card_submit_button');
-    var tokenField = document.getElementById("transaction_payment_method_token");
 
-    tokenField.setAttribute("value", savedCardToken);
-    if(savedCardToken == "") {
-      savedCardSubmitButton.disabled = true;
-    } else {
-      savedCardSubmitButton.disabled = false;
-    }
+    savedCardSubmitButton.disabled = (savedCardId == "" ? true : false);
   }
 </script>
 
@@ -87,13 +81,9 @@
 
   <% if @saved_cards.any? %>
     <div class="payment_option">
-      <% # TODO: Not this
-        saved_card_options = @saved_cards.map do |card|
-          ["#{card[:card_type]} #{card[:number]}", card[:token]]
-        end
-      %>
-      Buy using a Saved Card: <%= select_tag :saved_token, options_for_select(saved_card_options), include_blank: true, onchange: 'selectedSavedCard();' %>
-      <%= f.submit 'Buy!', id: 'saved_card_submit_button', disabled: true %>
+      Buy using a Saved Card:
+      <%= f.select :saved_card_id, options_from_collection_for_select(@saved_cards, :id, :to_s), {include_blank: true}, onchange: 'selectedSavedCard();' %>
+      <%= f.submit 'Buy with this saved card!', id: 'saved_card_submit_button', disabled: true %>
     </div>
   <% end %>
 
@@ -101,9 +91,12 @@
   <%= f.hidden_field :payment_method_token %>
 <% end %>
 
-<p>OR</p>
+<% if @saved_cards.any? %>
+  <p>OR</p>
+<% end %>
 
 <div class="payment_option">
+  Buy with a fresh card:
   <button onmouseover="initSpreedly()" onClick="SpreedlyExpress.openView()">
     Enter New Payment Info
   </button>
