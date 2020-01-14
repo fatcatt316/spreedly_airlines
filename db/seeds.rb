@@ -18,3 +18,5 @@ Flight.create!(
     { origin: 'Apex', destination: 'Knightdale', cost: 7},
   ]
 )
+
+puts "\n\nFlights have been seeded and are cleared for liftoff! 🛩"
