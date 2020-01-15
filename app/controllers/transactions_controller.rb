@@ -66,4 +66,14 @@ class TransactionsController < ApplicationController
   def spreedly_env
     @_spreedly_env ||= Spreedly::Environment.new(ENV['spreedly_environment_key'], ENV['spreedly_access_secret'])
   end
+
+  def deliver_to_receiver(transaction)
+    spreedly_env.deliver_to_receiver(
+      ENV['third_party_receiver_token'], # receiver_token,       # String
+      transaction.payment_method_token, # payment_method_token, # String
+      headers: { "Content-Type": "application/json" }, # Hash of { String: String }
+      url: ENV['third_party_receiver_url'], # String
+      body: { card_number: "{{credit_card_number}}" }.to_json # String
+    )
+  end
 end

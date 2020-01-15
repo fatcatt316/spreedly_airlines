@@ -1,3 +1,5 @@
 gateway_token:
 spreedly_access_secret:
 spreedly_environment_key:
+third_party_receiver_token:
+third_party_receiver_url:
