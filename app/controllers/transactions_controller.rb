@@ -17,12 +17,16 @@ class TransactionsController < ApplicationController
 
     ##### TODO: Cleanup
     if @transaction.valid?
-      transaction = spreedly_env.purchase_on_gateway(
-        ENV['gateway_token'],
-        @transaction.payment_method_token,
-        @transaction.amount * 100,
-        retain_on_success: @transaction.save_card?
-      )
+      if @transaction.purchase_via_pmd?
+        transaction = deliver_to_receiver(@transaction)
+      else
+        transaction = spreedly_env.purchase_on_gateway(
+          ENV['gateway_token'],
+          @transaction.payment_method_token,
+          @transaction.amount * 100,
+          retain_on_success: @transaction.save_card?
+        )
+      end
 
       if transaction.succeeded?
         @transaction.transaction_token = transaction.token
@@ -58,8 +62,8 @@ class TransactionsController < ApplicationController
 
   def transaction_params
     params.require(:transaction).permit(
-      :amount, :email, :flight_id, :payment_method_token, :save_card,
-      :saved_card_id, :ticket_count
+      :amount, :email, :flight_id, :payment_method_token, :purchase_via_pmd,
+      :save_card, :saved_card_id, :ticket_count
     )
   end
 

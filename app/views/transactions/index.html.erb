@@ -14,6 +14,7 @@
     <th>Total Cost</th>
     <th>Saved Card for Future Use?</th>
     <th>Used Saved Card?</th>
+    <th>Purchased Using PMD?</th>
     <th>Purchased at</th>
   </thead>
   <% @transactions.each do |transaction| %>
@@ -27,6 +28,7 @@
       <td><%= number_to_currency(transaction.amount, precision: 0) %></td>
       <td><%= transaction.save_card? %></td>
       <td><%= !transaction.save_card? && transaction.saved_card.present? %></td>
+      <td><%= transaction.purchase_via_pmd? %></td>
       <td><%= transaction.created_at %></td>
     </tr>
   <% end %>

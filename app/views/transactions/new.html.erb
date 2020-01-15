@@ -79,6 +79,10 @@
     Save card for future use? <%= f.select :save_card, [['Yes', true], ['No', false]]%>
   </div>
 
+  <div>
+    Purchase Using PMD? <%= f.select :purchase_via_pmd, [['Yes', true], ['No', false]]%>
+  </div>
+
   <% if @saved_cards.any? %>
     <div class="payment_option">
       Buy using a Saved Card:

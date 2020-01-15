@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20200113213514) do
     t.string   "payment_method_token"
     t.string   "transaction_token"
     t.boolean  "save_card",            default: false, null: false
+    t.boolean  "purchase_via_pmd",     default: false, null: false
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
     t.index ["flight_id"], name: "index_transactions_on_flight_id"
