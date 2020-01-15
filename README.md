@@ -35,6 +35,7 @@ You should be all set now to run your Rails server with `rails s` and to start b
   * organize the code
   * add tests
   * prevent user from being able to change "amount" value
+  * improve the UI
   * and more!
 
 ## Feedback on the exercise and docs
