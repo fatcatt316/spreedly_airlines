@@ -33,6 +33,8 @@ class TransactionsController < ApplicationController
         @transaction.transaction_token = spreedly_transaction.token
 
         notice_msg = 'Enjoy your flight!'
+        notice_msg << ' You purchased this using PMD.' if @transaction.purchase_via_pmd?
+
         if @transaction.saved_card
           notice_msg << ' You used a saved card to pay for this.'
         elsif @transaction.save_card?
