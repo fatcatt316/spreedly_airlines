@@ -9,6 +9,7 @@ class TransactionsController < ApplicationController
     @saved_cards = SavedCard.all
   end
 
+  # TODO: Clean this action up a bunch.
   def create
     @transaction = Transaction.new(transaction_params)
 
@@ -18,9 +19,9 @@ class TransactionsController < ApplicationController
     ##### TODO: Cleanup
     if @transaction.valid?
       if @transaction.purchase_via_pmd?
-        transaction = deliver_to_receiver(@transaction)
+        spreedly_transaction = deliver_to_receiver(@transaction)
       else
-        transaction = spreedly_env.purchase_on_gateway(
+        spreedly_transaction = spreedly_env.purchase_on_gateway(
           ENV['gateway_token'],
           @transaction.payment_method_token,
           @transaction.amount * 100,
@@ -28,8 +29,8 @@ class TransactionsController < ApplicationController
         )
       end
 
-      if transaction.succeeded?
-        @transaction.transaction_token = transaction.token
+      if spreedly_transaction.succeeded?
+        @transaction.transaction_token = spreedly_transaction.token
 
         notice_msg = 'Enjoy your flight!'
         if @transaction.saved_card
@@ -49,7 +50,7 @@ class TransactionsController < ApplicationController
         redirect_to transactions_path, notice: notice_msg
       else
         @saved_cards = SavedCard.all
-        flash.now[:notice] = transaction.message
+        flash.now[:notice] = spreedly_transaction.message
         render :new
       end
     else
@@ -73,11 +74,17 @@ class TransactionsController < ApplicationController
 
   def deliver_to_receiver(transaction)
     spreedly_env.deliver_to_receiver(
-      ENV['third_party_receiver_token'], # receiver_token,       # String
-      transaction.payment_method_token, # payment_method_token, # String
-      headers: { "Content-Type": "application/json" }, # Hash of { String: String }
-      url: ENV['third_party_receiver_url'], # String
-      body: { card_number: "{{credit_card_number}}" }.to_json # String
+      ENV['third_party_receiver_token'],
+      transaction.payment_method_token,
+      headers: { "Content-Type": "application/json" },
+      url: ENV['third_party_receiver_url'],
+      body: {
+        amount: transaction.amount,
+        card_number: "{{credit_card_number}}",
+        email: transaction.email,
+        flight_id: transaction.flight_id,
+        ticket_count: transaction.ticket_count
+      }.to_json
     )
   end
 end
