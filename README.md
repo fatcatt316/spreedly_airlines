@@ -1,24 +1,41 @@
-# README
+# 🛩Joe's Discount Aeroplane Travel
+## _You Get What You Pay For©_
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The goal of this app was to become more familiar with the [Spreedly API](https://docs.spreedly.com) and what's going on under the hood there.
 
-Things you may want to cover:
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-* Ruby version
+- [To Run Locally](#to-run-locally)
+- [Disclaimer](#disclaimer)
+- [Feedback on the exercise and docs](#feedback-on-the-exercise-and-docs)
 
-* System dependencies
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-* Configuration
+## To Run Locally
 
-* Database creation
+Once you've installed the correct Ruby version and the `bundler` gem, you're all set to install the rest of the gems!
 
-* Database initialization
+```
+bundle
+```
 
-* How to run the test suite
+Next, create your database, and seed in some test flights.
+```
+rails db:seed
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+You should be all set now to run your Rails server with `rails s` and to start booking some flights at [http://localhost:3000](http://localhost:3000)!
 
-* Deployment instructions
+[Here are some credit card numbers](https://docs.spreedly.com/reference/test-data/) you can test with.
 
-* ...
+## Disclaimer
+* There's _lots_ of room for improvement in the code! The focus of this exercise was to go through the Spreedly docs and get payments set up and working. If this was going to production, I'd take more time to:
+  * organize the code
+  * add tests
+  * prevent user from being able to change "amount" value
+  * and more!
+
+## Feedback on the exercise and docs
+I have a lil' list of feedback available upon request.
