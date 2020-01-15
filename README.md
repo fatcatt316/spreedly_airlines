@@ -1,7 +1,7 @@
 # 🛩Joe's Discount Aeroplane Travel
 ## _You Get What You Pay For©_
 
-The goal of this app was to become more familiar with the [Spreedly API](https://docs.spreedly.com) and what's going on under the hood there.
+The goal of this app was to become more familiar with the [Spreedly API](https://docs.spreedly.com) and get a better feeling of what our customers go through.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -39,4 +39,4 @@ You should be all set now to run your Rails server with `rails s` and to start b
   * and more!
 
 ## Feedback on the exercise and docs
-I have a lil' list of feedback available upon request.
+I have a lil' list of feedback available upon request :)
