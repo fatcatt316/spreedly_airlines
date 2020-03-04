@@ -10,7 +10,7 @@ gem 'rails', '~> 5.0.7', '>= 5.0.7.2'
 gem 'sqlite3', '~> 1.3.6'
 
 gem 'coffee-rails', '~> 4.2' # Use CoffeeScript for .coffee assets and views
-gem 'puma', '~> 3.0' # Use Puma as the app server
+gem 'puma', '~> 3.12' # Use Puma as the app server
 gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
 gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 
